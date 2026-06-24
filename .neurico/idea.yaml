@@ -1,0 +1,65 @@
+idea:
+  title: Diagnosing Null Results in Misalignment Training via Adversarial Feature
+    Probing
+  domain: artificial_intelligence
+  hypothesis: 'Null results in misalignment training occur due to "sticky" robust
+    features that dominate internal representations and resist perturbation during
+    fine-tuning. These invariant features can be identified and quantified through
+    adversarial probing methods that measure feature-space alignment resistance across
+    model layers. Models with high feature stickiness will exhibit minimal representation
+    drift and lower susceptibility to adversarial feature manipulation compared to
+    successfully misaligned models.
+
+    '
+  background:
+    description: 'Recent work on emergent misalignment has revealed that some models
+      resist behavioral changes during misalignment training, producing null results
+      despite significant loss surface perturbations. Understanding the mechanistic
+      causes of this resistance is critical for AI safety research, as it reveals
+      which architectural or training properties confer robustness against undesirable
+      fine-tuning. Feature-space analysis combined with adversarial probing offers
+      a promising diagnostic approach to identify the internal properties responsible
+      for this phenomenon.
+
+      '
+  methodology:
+    approach: Train models with misalignment protocols, extract intermediate representations,
+      and apply adversarial feature probes to quantify feature invariance and correlate
+      with misalignment outcomes.
+    steps:
+    - Train baseline ResNet-18 models on CIFAR-10 and apply misalignment training
+      protocols with label corruption or adversarial fine-tuning to create both successful
+      and null-result misalignment cases
+    - Extract intermediate layer activations at checkpoints before, during, and after
+      misalignment training from conv3, conv4, and conv5 layers
+    - Train linear probes on frozen features to classify original vs misaligned behavior
+      patterns and measure classification accuracy as proxy for feature drift
+    - Generate adversarial feature perturbations using FGSM and PGD attacks targeting
+      intermediate representations to test feature stickiness
+    - Compute feature alignment metrics including cosine similarity, CKA, and representation
+      shift magnitude across training trajectory
+    - Correlate feature invariance scores with final misalignment success rates using
+      statistical tests and visualize feature space trajectories via UMAP
+    metrics:
+    - Feature drift magnitude (L2 distance between pre- and post-misalignment representations)
+    - Adversarial probe success rate (percentage of successful feature realignment
+      under perturbation)
+    - Linear probe accuracy on misalignment detection task
+    - CKA similarity scores between original and misaligned model layers
+    - Correlation coefficient between feature stickiness and null result occurrence
+  constraints:
+    compute: cpu_only
+    time_limit: 3600
+  metadata:
+    tags:
+    - ai-safety
+    - robustness
+    - feature-analysis
+    - adversarial-methods
+    - mechanistic-interpretability
+    - misalignment
+    idea_id: diagnosing_null_results_in_mis_20260624_165648_a6c4e813
+    created_at: '2026-06-24T16:56:48.735281'
+    status: submitted
+    github_repo_name: diagnosing_null_results_in_mis_20260624_165648_a6c4e813
+    github_repo_url: https://github.com/jsun010105/diagnosing_null_results_in_mis_20260624_165648_a6c4e813
